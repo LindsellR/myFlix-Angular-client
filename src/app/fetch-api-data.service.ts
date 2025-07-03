@@ -9,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://movie-geeks-one.vercel.app/login';
+const apiUrl = 'https://movie-geeks-one.vercel.app/';
 @Injectable({
   providedIn: 'root',
 })
@@ -73,7 +73,7 @@ export class UserRegistrationService {
   public getDirector(director: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + 'movies/${movie._Id}/Director', {
+      .get(apiUrl + 'director/${director}', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -84,7 +84,7 @@ export class UserRegistrationService {
   public getGenre(genre: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + 'movies/${movie._Id}/Genre', {
+      .get(apiUrl + 'genre/${genre}', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -92,10 +92,10 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
-  public getUser(user: string): Observable<any> {
+  public getUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + 'users/${user.Username}', {
+      .get(apiUrl + 'users/${username}', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -103,10 +103,10 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
-  public addFavouriteMovie(movieId: string): Observable<any> {
+  public addFavouriteMovie(username: string, movieId: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .post(apiUrl + 'users/${user.Username}/movies/${movie._Id}', {
+      .post(apiUrl + 'users/${username}/movies/${movieId}', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -114,10 +114,10 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
-  public editUser(users: string): Observable<any> {
+  public editUser(username: string, userDetails: any): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .put(apiUrl + 'users/${user.Username}', {
+      .put(apiUrl + 'users/${username}', userDetails, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -125,10 +125,10 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
-  public deleteUser(user: string): Observable<any> {
+  public deleteUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .delete(apiUrl + 'users/${user.Username}', {
+      .delete(apiUrl + 'users/${username}', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -136,10 +136,10 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
-  public deleteFavouriteMovie(movieId: string): Observable<any> {
+  public deleteFavouriteMovie(username: string, movieId: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .delete(apiUrl + 'users/${user.Username}/movies/${movie._Id}', {
+      .delete(apiUrl + 'users/${username}/movies/${movieId}', {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
