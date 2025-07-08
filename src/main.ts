@@ -1,7 +1,14 @@
-import { platformBrowser } from '@angular/platform-browser';
-import { AppModule } from './app/app.module';
+// src/main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
-platformBrowser().bootstrapModule(AppModule, {
-  ngZoneEventCoalescing: true,
-})
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    provideAnimations(),
+    provideRouter([]), // Replace with your actual routes if needed
+  ],
+}).catch(err => console.error(err));

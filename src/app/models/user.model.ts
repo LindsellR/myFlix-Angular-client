@@ -1,9 +1,8 @@
 export interface User {
-  _id: string;
   Email: string;
   Username: string;
-  password: string;
-  birthday?: string; // optional
+  Password: string;
+  Birthday?: string; // optional
   FavoriteMovies?: string[]; // movie IDs
 }
 export interface LoginCredentials {

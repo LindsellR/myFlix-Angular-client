@@ -16,7 +16,7 @@ const apiUrl = 'https://movie-geeks-one.vercel.app/';
 @Injectable({
   providedIn: 'root',
 })
-export class UserRegistrationService {
+export class FetchApiDataService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {}
@@ -56,16 +56,18 @@ export class UserRegistrationService {
 
   public getAllMovies(): Observable<Movie[]> {
     const token = localStorage.getItem('token');
-    return this.http.get<Movie[]>(`${apiUrl}movies`, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token,
-      }),
-    })
-     .pipe(
+    return this.http
+      .get<Movie[]>(`${apiUrl}movies`, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + token,
+        }),
+      })
+      .pipe(
         map(this.extractResponseData<Movie[]>),
         catchError((error) => this.handleError<Movie[]>(error))
       );
   }
+
   public getMovie(movieId: string): Observable<Movie> {
     const token = localStorage.getItem('token');
     return this.http
