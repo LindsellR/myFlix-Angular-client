@@ -1,0 +1,204 @@
+@use "../../styles/variables" as *;
+
+.profile-card {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: $card-bg;
+  border: 2px solid $primary-color;
+  border-radius: 12px;
+  box-shadow: $card-shadow;
+  color: $text-dark;
+
+  h2,
+  h3,
+  h4 {
+    font-family: $font-heading;
+    text-align: center;
+    color: $secondary-color;
+    margin-bottom: 1rem;
+  }
+
+  .profile-layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .profile-image-section {
+    flex: 1 1 250px;
+    max-width: 300px;
+    text-align: center;
+
+    label.upload-button {
+      display: inline-block;
+      margin-bottom: 1rem;
+      background-color: $primary-color;
+      color: $secondary-color;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: $font-heading;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .image-preview-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .profile-preview-img {
+      max-width: 200px;
+      border-radius: 10px;
+      border: 2px solid $primary-color;
+      box-shadow: $img-shadow;
+    }
+
+    .image-placeholder {
+      width: 200px;
+      height: 200px;
+      background-color: $placeholder-bg;
+      border: 2px dashed $primary-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: $font-alt;
+      color: $secondary-color;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+  }
+
+  .profile-form-section {
+    flex: 2 1 400px;
+
+    form {
+      margin-bottom: 2rem;
+
+      mat-form-field.full-width {
+        width: 100%;
+        margin-bottom: 1rem;
+
+        input {
+          font-family: $font-heading;
+        }
+      }
+
+      button[type="submit"] {
+        display: block;
+        margin: 0 auto;
+        font-family: $font-heading;
+        font-weight: bold;
+        background-color: $primary-color;
+        color: $secondary-color;
+        border-radius: 6px;
+        padding: 0.5rem 2rem;
+
+        &:hover {
+          background-color: $primary-hover;
+        }
+      }
+    }
+  }
+
+  .favourites-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    .movie-card {
+      width: 250px;
+      border: 2px solid $primary-color;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: $light-bg;
+
+      mat-card-header {
+        background-color: $secondary-color;
+        color: $text-light;
+        padding: 0.5rem;
+
+        mat-card-title {
+          font-family: $font-heading;
+        }
+      }
+
+      img {
+        object-fit: cover;
+        height: 350px;
+        width: 100%;
+      }
+
+      mat-card-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.5rem;
+
+        button {
+          margin-bottom: 0.25rem;
+          font-family: $font-heading;
+          font-weight: 600;
+          border-radius: 4px;
+        }
+
+        button[color="warn"] {
+          color: #fff;
+          background-color: $warn-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-image-section,
+  .profile-form-section {
+    max-width: 100%;
+  }
+
+  .favourites-list {
+    justify-content: center;
+
+    .movie-card {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 1rem;
+  }
+
+  .image-placeholder {
+    width: 150px;
+    height: 150px;
+    font-size: 0.9rem;
+  }
+
+  .profile-preview-img {
+    max-width: 150px;
+  }
+
+  button[type="submit"] {
+    padding: 0.4rem 1.2rem;
+  }
+}

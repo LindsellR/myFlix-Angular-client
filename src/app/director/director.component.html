@@ -1,0 +1,6 @@
+<h2>{{ data.Name }}</h2>
+<p><strong>Bio:</strong> {{ data.Bio }}</p>
+<p><strong>Born:</strong> {{ data.Born | date:'mediumDate' }}</p>
+<p *ngIf="data.Died"><strong>Died:</strong> {{ data.Died | date:'mediumDate' }}</p>
+
+<button mat-raised-button color="primary" (click)="closeDialog()">Close</button>

@@ -1,48 +1,96 @@
-<!-- src/app/user-registration-form/user-registration-form.component.html -->
-<!doctype html>
-<html lang="en">
+<div class="registration-container" role="main">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Sign Up!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Add template reference variable 'registrationForm' for validation state -->
+      <form #registrationForm="ngForm" (ngSubmit)="registerUser()" novalidate>
+        <!-- Username field with validations: required, minlength 5, alphanumeric pattern -->
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input
+            class="cinzel-input"
+            matInput
+            [(ngModel)]="userData.Username"
+            name="Username"
+            #username="ngModel"
+            required
+            minlength="5"
+            pattern="^[a-zA-Z0-9]+$"
+            aria-describedby="usernameErrors"
+          />
+          <!-- Username validation error messages -->
+          <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+            <span *ngIf="username.errors?.['required']">Username is required.</span>
+            <span *ngIf="username.errors?.['minlength']">Username must be at least 5 characters long.</span>
+            <span *ngIf="username.errors?.['pattern']">Username must be alphanumeric only.</span>
+          </mat-error>
+        </mat-form-field>
 
-<head>
-    <meta charset="utf-8">
-    <title>MyFlixAngularClient</title>
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+        <!-- Password field with required validation -->
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            class="cinzel-input"
+            matInput
+            [(ngModel)]="userData.Password"
+            name="Password"
+            #password="ngModel"
+            type="password"
+            required
+            aria-describedby="passwordErrors"
+          />
+          <!-- Password validation error message -->
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors?.['required']">Password is required.</span>
+          </mat-error>
+        </mat-form-field>
 
-<body class="mat-typography">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Sign Up!</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <form>
-                    <mat-form-field>
-                        <input matInput [(ngModel)]="userData.Username" placeholder="Username" type="text"
-                            name="Username" required>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput [(ngModel)]="userData.Password" type="password" placeholder="Password"
-                            name="Password" required>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput [(ngModel)]="userData.Email" type="email" placeholder="Email" name="Email"
-                            required>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput [(ngModel)]="userData.Birthday" type="date" placeholder="Birthday"
-                            name="Birthday">
-                    </mat-form-field>
-                </form>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button (click)="registerUser()" color="primary">
-                    Sign Up
-                </button>
-            </mat-card-actions>
-        </mat-card>
-</body>
+        <!-- Email field with required and email format validation -->
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            class="cinzel-input"
+            matInput
+            [(ngModel)]="userData.Email"
+            name="Email"
+            #email="ngModel"
+            type="email"
+            required
+            aria-describedby="emailErrors"
+          />
+          <!-- Email validation error messages -->
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors?.['required']">Email is required.</span>
+            <span *ngIf="email.errors?.['email']">Please enter a valid email address.</span>
+          </mat-error>
+        </mat-form-field>
 
-</html>
+        <!-- Birthday field - no validations -->
+        <mat-form-field appearance="fill">
+          <mat-label>Birthday</mat-label>
+          <input
+            class="cinzel-input"
+            matInput
+            [(ngModel)]="userData.Birthday"
+            name="Birthday"
+            type="date"
+          />
+        </mat-form-field>
+
+        <!-- Submit button is disabled if form is invalid -->
+        <mat-card-actions align="end">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="registrationForm.invalid"
+          >
+            Sign Up
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

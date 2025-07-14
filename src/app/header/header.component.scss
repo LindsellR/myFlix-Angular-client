@@ -1,0 +1,77 @@
+@use '../../styles/variables' as *;
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $secondary-color; // deep indigo (art deco midnight)
+  color: $text-light;
+  padding: 1rem 2rem;
+  border-bottom: 4px solid $primary-color; // art deco gold
+  flex-wrap: wrap;
+
+  .branding {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+
+    .title {
+      font-family: $font-heading;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-family: $font-heading;
+      font-size: 1rem;
+      color: $primary-color;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      font-family: $font-heading;
+      color: $text-light;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+
+      &:hover,
+      &.active-link {
+        color: $primary-color;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 1rem;
+
+    .branding {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .title {
+        font-size: 1.5rem;
+      }
+
+      .subtitle {
+        font-size: 0.9rem;
+      }
+    }
+
+    .nav-links {
+      width: 100%;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 1rem;
+
+      a {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

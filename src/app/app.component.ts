@@ -1,35 +1,24 @@
-// src/app/app.component.ts
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
-import { UserLoginFormComponent} from './user-login-form/user-login-form.component'
 
 @Component({
-  standalone: true,
+  standalone: true, //Opting for standalone modules eliminates need for ngModules
   selector: 'app-root',
+  imports: [
+    RouterOutlet,      // Enables routing between views
+    HeaderComponent,   // Persistent app-wide header
+    CommonModule       // Includes structural directives like *ngIf, *ngFor
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    UserRegistrationFormComponent,
-    UserLoginFormComponent
-  ]
 })
 export class AppComponent {
-  title = 'myFlix-Angular-client';
-
-  constructor(public dialog: MatDialog) {}
-
-  openUserRegistrationDialog(): void {
-    this.dialog.open(UserRegistrationFormComponent, {
-      width: '280px'
-    });
-  }
-     openUserLoginDialog(): void {
-    this.dialog.open(UserLoginFormComponent, {
-      width: '280px'
-    }); 
+  /**
+   * Determines if the user is currently authenticated based on the presence of a token in localStorage.
+   */
+  get isLoggedIn(): boolean {
+    return typeof window !== 'undefined' && !!localStorage.getItem('token');
   }
 }

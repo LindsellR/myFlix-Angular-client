@@ -1,0 +1,211 @@
+@use '../../styles/variables' as *;
+
+/* Full-page wrapper background */
+.full-page-wrapper {
+  //background-color: $light-bg;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Wrapper that contains arrows + scroll container */
+.movie-scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //background-color: $light-bg;
+  padding: 2rem;
+}
+
+/* Left and right scroll arrows */
+.scroll-button {
+  background-color: $primary-color;
+  border: none;
+  color: $secondary-color;
+  font-family: $font-heading;
+  font-size: 2rem;
+  width: 40px;
+  height: 100px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+
+  &.left {
+    position: absolute;
+    left: 0;
+  }
+
+  &.right {
+    position: absolute;
+    right: 0;
+  }
+}
+
+/* Horizontal scroll area */
+.movie-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  max-width: 90vw;
+  scroll-padding: 0 50%;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary-color;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+/* Individual movie cards */
+.movie-card {
+  flex: 0 0 auto; // keep cards from shrinking or growing
+  width: 250px;
+  scroll-snap-align: start;
+  background-color: $card-bg;
+  border: 2px solid $primary-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(59, 59, 88, 0.2);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &:focus {
+    outline: 3px solid $primary-color;
+    outline-offset: 2px;
+  }
+
+  mat-card-header {
+    background-color: $secondary-color;
+    color: $text-light;
+    padding: 1rem;
+    border-bottom: 1px solid $primary-color;
+
+    mat-card-title {
+      font-family: $font-heading;
+      font-size: 1.2rem;
+    }
+
+    mat-card-subtitle {
+      font-family: $font-heading;
+      font-size: 0.9rem;
+      color: $primary-color;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-top: 1px solid $secondary-color;
+    border-bottom: 1px solid $secondary-color;
+  }
+
+  mat-card-actions {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .action-row button,
+    .favorite-row button {
+      border-radius: 6px;
+      border: 1.5px solid $primary-color; // thin gold border
+      background-clip: padding-box; // prevents border bleeding on hover
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem; // space between action-row and favorite-row
+
+      button {
+        font-family: $font-heading;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        background-color: $primary-color;
+        color: $secondary-color;
+
+        &:hover {
+          background-color: $primary-hover;
+        }
+      }
+    }
+
+    .favorite-row {
+      button {
+        color: $primary-color;
+        font-size: 1.5rem;
+
+        &.favourited {
+          color: red;
+        }
+
+        &:hover {
+          color: #a57f20; // slightly darker gold hover, no variable needed here
+        }
+      }
+    }
+  }
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+  .movie-scroll-wrapper {
+    padding: 1rem;
+  }
+  .movie-scroll-container {
+    max-width: 100vw;
+    padding: 1rem;
+  }
+  .movie-card {
+    width: 200px; /* Slightly smaller cards on tablets */
+    height: auto; /* Let height adjust */
+  }
+  .scroll-button {
+    width: 35px;
+    height: 80px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .movie-scroll-wrapper {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+  .movie-scroll-container {
+    padding: 0;
+    overflow-x: scroll;
+    max-width: 100vw;
+    gap: 0.75rem;
+  }
+  .movie-card {
+    width: 150px; /* Smaller cards on phones */
+    height: auto;
+  }
+  .scroll-button {
+    width: 30px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
+}

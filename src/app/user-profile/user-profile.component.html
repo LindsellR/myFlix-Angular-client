@@ -1,0 +1,108 @@
+<mat-card class="profile-card">
+  <h2>{{ user.Username }}'s Profile</h2>
+
+  <div class="profile-layout">
+    <!-- Profile Image Section -->
+    <div class="profile-image-section">
+      <h3>Profile Image</h3>
+
+      <label class="upload-button" for="profileImageInput">Upload Image</label>
+      <input
+        type="file"
+        id="profileImageInput"
+        (change)="onProfileImageSelected($event)"
+        accept="image/*"
+      />
+
+      <div class="image-preview-wrapper">
+        <ng-container *ngIf="profileImagePreview; else placeholder">
+          <img
+            [src]="profileImagePreview"
+            alt="Profile Preview"
+            class="profile-preview-img"
+          />
+          <button mat-button color="warn" (click)="deleteProfileImage()">
+            Delete Image
+          </button>
+        </ng-container>
+
+        <ng-template #placeholder>
+          <div class="image-placeholder">
+            <span>No image selected</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Profile Form Section -->
+    <div class="profile-form-section">
+      <h3 class="section-heading">Update Your Details</h3>
+
+      <form #profileForm="ngForm" (ngSubmit)="updateUser()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.Username"
+            name="Username"
+            required
+          />
+          <mat-hint>You can change your username here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="user.Password"
+            name="Password"
+            required
+          />
+          <mat-hint>Choose a new password</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="user.Email"
+            name="Email"
+            required
+          />
+          <mat-hint>Update your email address</mat-hint>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon>save</mat-icon>
+          Update Profile
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Favorite Movies -->
+  <h3>Favorite Movies</h3>
+  <div class="favourites-list">
+    <mat-card *ngFor="let movie of favouriteMovies" class="movie-card">
+      <img mat-card-image [src]="movie.ImageURL" alt="{{ movie.Title }}" />
+
+      <mat-card-header>
+        <mat-card-title>{{ movie.Title }}</mat-card-title>
+      </mat-card-header>
+
+      <!-- <mat-card-content>
+      <p>{{ movie.Description }}</p>
+    </mat-card-content> -->
+
+      <mat-card-actions>
+        <button mat-button (click)="openDirectorDialog(movie.Director)">Director</button>
+        <button mat-button (click)="openGenreDialog(movie.Genre)">Genre</button>
+        <button mat-button (click)="openSynopsisDialog(movie)">Synopsis</button>
+        <button mat-button color="warn" (click)="removeFavourite(movie._id)">Remove</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</mat-card>

@@ -10,11 +10,13 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login-form',
@@ -24,36 +26,42 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
   ],
   templateUrl: './user-login-form.component.html',
-  styleUrl: './user-login-form.component.scss'
+  styleUrl: './user-login-form.component.scss',
 })
 export class UserLoginFormComponent implements OnInit {
+  @Input() userData = { Username: '', Password: '' };
 
-  @Input() userData = { Username: '', Password: ''};
-
-constructor(
+  constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    public router: Router
+  ) {}
 
-ngOnInit(): void {
+  ngOnInit(): void {}
+
+  // Function for sending form inputs to the backend
+  loginUser(): void {
+    this.fetchApiData.userLogin(this.userData).subscribe(
+      (result) => {
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('user', result.user.Username);
+
+        this.dialogRef.close(); // Close the modal on success!
+        this.snackBar.open(`Login successful!`, 'OK', {
+          duration: 2000,
+        });
+        this.router.navigate(['movies']);
+      },
+      (result) => {
+        this.snackBar.open('Incorrect Username or password', 'OK', {
+          duration: 2000,
+        });
+      }
+    );
+  }
 }
-
-// This is the function responsible for sending the form inputs to the backend
-loginUser(): void {
-    this.fetchApiData.userLogin(this.userData).subscribe((result) => {
-     this.dialogRef.close(); // This will close the modal on success!
-     this.snackBar.open(`Login successful!`, 'OK', {
-        duration: 2000
-     });
-    }, (result) => {
-      this.snackBar.open(result, 'OK', {
-        duration: 2000
-      });
-    });
-  }
-
-  }
-

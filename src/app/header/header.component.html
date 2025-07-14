@@ -1,0 +1,12 @@
+<header class="app-header" role="banner">
+  <div class="branding">
+    <h1 class="title">myFlix</h1>
+    <span class="subtitle">Classic Euro Cinema</span>
+  </div>
+
+  <nav class="nav-links" role="navigation" aria-label="Main navigation">
+    <a routerLink="/movies" routerLinkActive="active-link">Movies</a>
+    <a routerLink="/profile" routerLinkActive="active-link">Profile</a>
+    <a (click)="logout()" style="cursor: pointer;">Logout</a>
+  </nav>
+</header>

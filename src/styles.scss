@@ -1,8 +1,7 @@
+@use "@angular/material" as mat;
+@use "./styles/variables" as *;
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
-
+// Angular Material custom theme
 html {
   @include mat.theme((
     color: (
@@ -13,7 +12,57 @@ html {
     typography: Roboto,
     density: 0,
   ));
-}/* You can add global styles to this file, and also import other style files */
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Global layout settings
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: $font-heading;
+  background-color: $light-bg;
+  color: $text-dark;
+  position: relative;
+  overflow-x: hidden;
+
+  // Ensure content stays above background image
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Background image layer
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('assets/film-strip.jpg') center/cover no-repeat;
+    opacity: 0.12; 
+    z-index: 0;
+    pointer-events: none;
+  }
+}
+
+// Headings
+h1,
+h2,
+h3,
+mat-card-title {
+  font-family: $font-heading;
+}
+
+// Subtext, paragraphs, and general content
+body,
+p,
+mat-card-subtitle,
+.description-text,
+mat-card-content,
+mat-dialog-content {
+  font-family: $font-alt;
+}
+
+// Inputs
+input.mat-input-element,
+textarea.mat-input-element {
+  font-family: $font-heading;
+}

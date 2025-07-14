@@ -1,0 +1,43 @@
+@use "../../styles/variables" as *;
+
+:host {
+  display: block;
+  max-width: 400px;
+  padding: 1.5rem;
+  font-family: $font-heading;
+  color: $text-dark;
+  background-color: $light-bg;
+  border: 2px solid $primary-color;
+  border-radius: 12px;
+  box-shadow: $img-shadow;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: $secondary-color;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    font-family: $font-heading;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 0.5rem 1.5rem;
+    background-color: $primary-color;
+    color: $secondary-color;
+    border: none;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
