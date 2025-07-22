@@ -1,59 +1,89 @@
-# MyFlixAngularClient
+#  MyFlixAngularClient
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+A responsive, single-page Angular application that allows users to explore a curated selection of classic movies. This is the Angular built front-end client for the [Movie-Geeks REST API](https://github.com/lindsellr/movie-geeks). There is also a React built front-end client you can find here https://movie-geeks-classics.netlify.app
 
-## Development server
+[Live Demo](https://lindsellr.github.io/myFlix-Angular-Client/)
 
-To start a local development server, run:
+---
+
+## Features
+
+- User registration and login
+- Browse a catalog of classic movies
+- View detailed information about each film, director, and genre
+- Add/remove movies to a list of personal favorites
+- Update user profile and preferences
+- Responsive design with Angular Material
+
+---
+
+## Tech Stack
+
+- **Angular 19**
+- **Angular Material**
+- **TypeScript**
+- **RxJS**
+- **MongoDB, Express.js** (back-end API)
+
+---
+
+## Getting Started (Development)
+
+Clone the project and install dependencies:
+
+```bash
+git clone https://github.com/lindsellr/myFlix-Angular-Client.git
+cd myFlix-Angular-Client
+npm install
+````
+
+Run the development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/` in your browser. The app will auto-reload if you change any source files.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Testing
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Run unit tests:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Build for Production
+
+To create a production build:
 
 ```bash
-ng e2e
+ng build --configuration production
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This will compile the app into the `dist/myFlix-Angular-Client` folder, optimized for deployment.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Deployment (GitHub Pages)
+
+To deploy the app via `angular-cli-ghpages`:
+
+```bash
+npx angular-cli-ghpages --dir=dist/myFlix-Angular-Client/browser
+```
+
+Make sure your repository has a `gh-pages` branch and that GitHub Pages is set to deploy from `/ (root)` of that branch.
+
+
+---
+
+### AI Assistance Disclosure.   
+
+Portions of this documentation were produced with the assistance of AI tools (e.g., OpenAI's ChatGPT). The final content has been reviewed and verified by the project developer for accuracy and alignment with the project.
+
+
