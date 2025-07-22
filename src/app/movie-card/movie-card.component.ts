@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
 
 import { DirectorComponent } from '../director/director.component';
 import { GenreComponent } from '../genre/genre.component';
 import { MovieSynopsisComponent } from '../movie-synopsis/movie-synopsis.component';
+
+import { Movie, Director, Genre } from '../models/movie.model';
 
 @Component({
   selector: 'app-movie-card',
@@ -24,16 +25,25 @@ import { MovieSynopsisComponent } from '../movie-synopsis/movie-synopsis.compone
   ],
 })
 export class MovieCardComponent implements OnInit {
+  /**
+   * Reference to the scrollable movie container element.
+   */
   @ViewChild('scrollContainer', { read: ElementRef })
   scrollContainer!: ElementRef;
 
-  movies: any[] = [];
+  /**
+   * Array of movies retrieved from the API.
+   */
+  movies: Movie[] = [];
 
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialog: MatDialog
   ) {}
 
+  /**
+   * Lifecycle hook. Loads movies on component initialization.
+   */
   ngOnInit(): void {
     this.loadMovies();
   }
@@ -43,7 +53,7 @@ export class MovieCardComponent implements OnInit {
    */
   loadMovies(): void {
     this.fetchApiData.getAllMovies().subscribe({
-      next: (resp) => {
+      next: (resp: Movie[]) => {
         this.movies = resp;
         console.log('Movies loaded:', this.movies);
       },
@@ -75,9 +85,9 @@ export class MovieCardComponent implements OnInit {
 
   /**
    * Opens a dialog displaying director details.
-   * @param director Director object to pass to dialog
+   * @param director - The director object to display.
    */
-  openDirectorDialog(director: any): void {
+  openDirectorDialog(director: Director): void {
     this.dialog.open(DirectorComponent, {
       data: director,
       width: '400px',
@@ -86,9 +96,9 @@ export class MovieCardComponent implements OnInit {
 
   /**
    * Opens a dialog displaying genre details.
-   * @param genre Genre object to pass to dialog
+   * @param genre - The genre object to display.
    */
-  openGenreDialog(genre: any): void {
+  openGenreDialog(genre: Genre): void {
     this.dialog.open(GenreComponent, {
       data: genre,
       width: '400px',
@@ -97,9 +107,9 @@ export class MovieCardComponent implements OnInit {
 
   /**
    * Opens a dialog displaying the movie synopsis.
-   * @param movie Movie object to pass to dialog
+   * @param movie - The movie object to display.
    */
-  openMovieSynopsisDialog(movie: any): void {
+  openMovieSynopsisDialog(movie: Movie): void {
     this.dialog.open(MovieSynopsisComponent, {
       data: movie,
       width: '400px',
@@ -107,8 +117,8 @@ export class MovieCardComponent implements OnInit {
   }
 
   /**
-   * Adds a movie to the user's favourites.
-   * @param movieId ID of the movie to add
+   * Adds a movie to the user's list of favourites.
+   * @param movieId - The ID of the movie to add.
    */
   addToFavourites(movieId: string): void {
     const username = localStorage.getItem('user') || '';

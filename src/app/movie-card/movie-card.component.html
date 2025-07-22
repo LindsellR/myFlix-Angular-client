@@ -22,10 +22,10 @@
             <mat-card-actions>
                 <!-- Action buttons row -->
                 <div class="action-row">
-                    <button mat-button color="primary" (click)="openGenreDialog(movie.Genre)" aria-label="Show Genre">
+                    <button mat-button color="primary" (click)="movie.Genre && openGenreDialog(movie.Genre)" aria-label="Show Genre">
                         Genre
                     </button>
-                    <button mat-button color="primary" (click)="openDirectorDialog(movie.Director)"
+                    <button mat-button color="primary" (click)="movie.Director && openDirectorDialog(movie.Director)"
                         aria-label="Show Director">
                         Director
                     </button>
@@ -37,7 +37,7 @@
 
                 <!-- Favorite button -->
                 <div class="favorite-row">
-                    <button mat-icon-button color="warn" (click)="addToFavourites(movie._id)"
+                    <button mat-icon-button color="warn" (click)="movie._id && addToFavourites(movie._id)"
                         [attr.aria-label]="'Add ' + movie.Title + ' to Favorites'">
                         <mat-icon>favorite</mat-icon>
                     </button>

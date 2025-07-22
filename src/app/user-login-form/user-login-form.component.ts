@@ -1,15 +1,7 @@
-// src/app/user-registration-form/user-registration-form.component.ts
 import { Component, OnInit, Input } from '@angular/core';
-
-// You'll use this import to close the dialog on success
 import { MatDialogRef } from '@angular/material/dialog';
-
-// This import brings in the API calls we created in 6.2
 import { FetchApiDataService } from '../fetch-api-data.service';
-
-// This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +10,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
+/**
+ * The `UserLoginFormComponent` provides a login form allowing users to authenticate
+ * by entering their username and password. On successful login, it stores credentials
+ * in `localStorage`, displays a confirmation message, and redirects to the movies view.
+ */
 @Component({
   selector: 'app-user-login-form',
   standalone: true,
@@ -33,8 +30,18 @@ import { Router } from '@angular/router';
   styleUrl: './user-login-form.component.scss',
 })
 export class UserLoginFormComponent implements OnInit {
+  /**
+   * The credentials input by the user for login.
+   */
   @Input() userData = { Username: '', Password: '' };
 
+  /**
+   * Creates an instance of UserLoginFormComponent.
+   * @param fetchApiData Service for handling HTTP requests to the API.
+   * @param dialogRef Reference to the open login dialog, used to close it.
+   * @param snackBar Snackbar service to display notifications to the user.
+   * @param router Angular Router for navigating after successful login.
+   */
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
@@ -42,9 +49,17 @@ export class UserLoginFormComponent implements OnInit {
     public router: Router
   ) {}
 
+  /**
+   * Angular lifecycle hook called after component initialization.
+   */
   ngOnInit(): void {}
 
-  // Function for sending form inputs to the backend
+  /**
+   * Sends user login data to the backend.
+   * On success, stores token and username in `localStorage`,
+   * shows a success message, closes the dialog, and navigates to the movies route.
+   * On failure, shows an error message.
+   */
   loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe(
       (result) => {
